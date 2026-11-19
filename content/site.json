@@ -1,0 +1,19 @@
+{
+  "name": "Your Name",
+  "tagline": "Photography · Production · Creative Direction",
+  "intro": "I make images and films that feel like somewhere you've been.",
+  "location": "London, UK",
+  "email": "hello@example.com",
+  "about": [
+    "Replace this with a few lines about yourself: what you shoot, who you work with, and what you care about.",
+    "Available for commissions, editorial, brand campaigns and production work worldwide."
+  ],
+  "services": ["Photography", "Art Direction", "Video Production", "Post-Production"],
+  "clients": ["Client One", "Client Two", "Client Three", "Client Four"],
+  "portrait": "",
+  "socials": [
+    { "label": "Instagram", "url": "https://instagram.com/" },
+    { "label": "Vimeo", "url": "https://vimeo.com/" },
+    { "label": "LinkedIn", "url": "https://linkedin.com/" }
+  ]
+}

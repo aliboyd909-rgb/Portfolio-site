@@ -1,0 +1,158 @@
+{
+  "generated": "2026-11-19T15:04:10.311Z",
+  "projects": [
+    {
+      "slug": "desert-light",
+      "title": "Desert Light",
+      "category": "Photography",
+      "year": 2026,
+      "client": "Sample Client",
+      "role": "Photographer",
+      "description": "Placeholder project. Replace the images in this folder with your own and edit info.json.",
+      "featured": true,
+      "cover": {
+        "src": "content/projects/01-desert-light/cover.jpg",
+        "type": "image",
+        "name": "cover.jpg"
+      },
+      "media": [
+        {
+          "src": "content/projects/01-desert-light/02.jpg",
+          "type": "image",
+          "name": "02.jpg"
+        },
+        {
+          "src": "content/projects/01-desert-light/03.jpg",
+          "type": "image",
+          "name": "03.jpg"
+        },
+        {
+          "src": "content/projects/01-desert-light/04.jpg",
+          "type": "image",
+          "name": "04.jpg"
+        },
+        {
+          "src": "content/projects/01-desert-light/05.jpg",
+          "type": "image",
+          "name": "05.jpg"
+        },
+        {
+          "src": "content/projects/01-desert-light/cover.jpg",
+          "type": "image",
+          "name": "cover.jpg"
+        }
+      ]
+    },
+    {
+      "slug": "city-after-dark",
+      "title": "City After Dark",
+      "category": "Editorial",
+      "year": 2026,
+      "client": "Sample Client",
+      "role": "Photographer",
+      "description": "Placeholder project — night streets, neon and long exposures.",
+      "featured": true,
+      "cover": {
+        "src": "content/projects/02-city-after-dark/cover.jpg",
+        "type": "image",
+        "name": "cover.jpg"
+      },
+      "media": [
+        {
+          "src": "content/projects/02-city-after-dark/02.jpg",
+          "type": "image",
+          "name": "02.jpg"
+        },
+        {
+          "src": "content/projects/02-city-after-dark/03.jpg",
+          "type": "image",
+          "name": "03.jpg"
+        },
+        {
+          "src": "content/projects/02-city-after-dark/04.jpg",
+          "type": "image",
+          "name": "04.jpg"
+        },
+        {
+          "src": "content/projects/02-city-after-dark/cover.jpg",
+          "type": "image",
+          "name": "cover.jpg"
+        }
+      ]
+    },
+    {
+      "slug": "studio-portraits",
+      "title": "Studio Portraits",
+      "category": "Portraiture",
+      "year": 2025,
+      "client": "Sample Client",
+      "role": "Photographer",
+      "description": "Placeholder project — a series of studio portraits.",
+      "featured": true,
+      "cover": {
+        "src": "content/projects/03-studio-portraits/cover.jpg",
+        "type": "image",
+        "name": "cover.jpg"
+      },
+      "media": [
+        {
+          "src": "content/projects/03-studio-portraits/02.jpg",
+          "type": "image",
+          "name": "02.jpg"
+        },
+        {
+          "src": "content/projects/03-studio-portraits/03.jpg",
+          "type": "image",
+          "name": "03.jpg"
+        },
+        {
+          "src": "content/projects/03-studio-portraits/04.jpg",
+          "type": "image",
+          "name": "04.jpg"
+        },
+        {
+          "src": "content/projects/03-studio-portraits/cover.jpg",
+          "type": "image",
+          "name": "cover.jpg"
+        }
+      ]
+    },
+    {
+      "slug": "coastline-campaign",
+      "title": "Coastline Campaign",
+      "category": "Production",
+      "year": 2025,
+      "client": "Sample Client",
+      "role": "Photographer",
+      "description": "Placeholder project — brand campaign shoot and production.",
+      "featured": true,
+      "cover": {
+        "src": "content/projects/04-coastline-campaign/cover.jpg",
+        "type": "image",
+        "name": "cover.jpg"
+      },
+      "media": [
+        {
+          "src": "content/projects/04-coastline-campaign/02.jpg",
+          "type": "image",
+          "name": "02.jpg"
+        },
+        {
+          "src": "content/projects/04-coastline-campaign/03.jpg",
+          "type": "image",
+          "name": "03.jpg"
+        },
+        {
+          "src": "content/projects/04-coastline-campaign/04.jpg",
+          "type": "image",
+          "name": "04.jpg"
+        },
+        {
+          "src": "content/projects/04-coastline-campaign/cover.jpg",
+          "type": "image",
+          "name": "cover.jpg"
+        }
+      ]
+    }
+  ]
+}
