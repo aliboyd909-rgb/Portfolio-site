@@ -61,11 +61,11 @@ const views = {
       <section class="section">
         <div class="section__head">
           <h2 class="display section__title">${split("Selected *work*")}</h2>
-          <a class="btn-link" href="#/work" data-cursor="">All projects</a>
+          <a class="btn-link" href="#work" data-cursor="">All projects</a>
         </div>
         <div class="featured">
           ${featured.map((p, i) => `
-            <a class="feature" href="#/project/${p.slug}" data-cursor="View">
+            <a class="feature" href="#project-${p.slug}" data-cursor="View">
               <div class="feature__media img-wipe">${media(p.cover, { alt: p.title })}</div>
               <div class="feature__info" data-reveal style="--d:200ms">
                 <span class="feature__num">${String(i + 1).padStart(2, "0")}</span>
@@ -81,7 +81,7 @@ const views = {
 
   work(params) {
     const cats = ["All", ...new Set(projects.map((p) => p.category))];
-    const active = cats.includes(params.get("filter")) ? params.get("filter") : "All";
+    const active = "All";
     return {
       label: "Work",
       html: `
@@ -94,7 +94,7 @@ const views = {
       </section>
       <section class="grid">
         ${projects.map((p, i) => `
-          <a class="card ${active !== "All" && p.category !== active ? "is-filtered" : ""}" href="#/project/${p.slug}" data-category="${esc(p.category)}" data-cursor="View" data-reveal style="--d:${(i % 3) * 120}ms">
+          <a class="card ${active !== "All" && p.category !== active ? "is-filtered" : ""}" href="#project-${p.slug}" data-category="${esc(p.category)}" data-cursor="View" data-reveal style="--d:${(i % 3) * 120}ms">
             <div class="card__media">${media(p.cover, { alt: p.title })}</div>
             <div class="card__meta"><span class="card__title">${esc(p.title)}</span><span class="eyebrow">${esc(p.year)}</span></div>
             <span class="eyebrow">${esc(p.category)}</span>
@@ -138,7 +138,7 @@ const views = {
           </button>`).join("")}
       </section>
       ${next && next !== p ? `
-      <a class="next-project" href="#/project/${next.slug}" data-cursor="Next">
+      <a class="next-project" href="#project-${next.slug}" data-cursor="Next">
         <div class="next-project__img">${media(next.cover)}</div>
         <span class="eyebrow">Next project</span>
         <h2 class="display next-project__title">${esc(next.title)}</h2>
@@ -167,7 +167,7 @@ const views = {
             ${site.services?.length ? `<div><span class="eyebrow">Services</span><ul>${site.services.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div>` : ""}
             ${site.clients?.length ? `<div><span class="eyebrow">Selected clients</span><ul>${site.clients.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div>` : ""}
           </div>
-          <p style="margin-top:3rem" data-reveal><a class="btn-link" href="#/contact" data-cursor="">Get in touch</a></p>
+          <p style="margin-top:3rem" data-reveal><a class="btn-link" href="#contact" data-cursor="">Get in touch</a></p>
         </div>
       </section>
       ${footer()}`,
@@ -191,7 +191,7 @@ const views = {
   },
 
   notFound() {
-    return { label: "Lost", html: `<section class="contact"><h1 class="display page-head__title">${split("Page not *found*")}</h1><p data-reveal><a class="btn-link" href="#/" data-cursor="">Back home</a></p></section>` };
+    return { label: "Lost", html: `<section class="contact"><h1 class="display page-head__title">${split("Page not *found*")}</h1><p data-reveal><a class="btn-link" href="#" data-cursor="">Back home</a></p></section>` };
   },
 };
 
@@ -206,7 +206,6 @@ async function filterCards(cards, cat) {
   if (!reduceMotion) {
     cards.filter(show).forEach((c, i) => c.animate([{ opacity: 0, transform: "translateY(30px)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: i * 70, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" }));
   }
-  history.replaceState(null, "", cat === "All" ? "#/work" : `#/work?filter=${encodeURIComponent(cat)}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -217,10 +216,10 @@ let currentPath = null;
 let navigating = false;
 
 function parseHash() {
-  const raw = location.hash.replace(/^#/, "") || "/";
-  const [path, query = ""] = raw.split("?");
-  const parts = path.split("/").filter(Boolean);
-  return { path, name: parts[0] || "home", arg: decodeURIComponent(parts[1] || ""), params: new URLSearchParams(query) };
+  // Plain hashes: #work, #about, #contact, #project-<slug>; empty = home
+  const path = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+  if (path.startsWith("project-")) return { path, name: "project", arg: path.slice(8), params: new URLSearchParams() };
+  return { path, name: path || "home", arg: "", params: new URLSearchParams() };
 }
 
 function resolve() {
@@ -267,7 +266,7 @@ function render(view) {
   document.title = view.label === "Home" ? site.name : `${view.label} — ${site.name}`;
   view.mount?.();
   document.querySelectorAll(".nav__links a").forEach((a) =>
-    a.classList.toggle("is-active", location.hash.startsWith(a.getAttribute("href"))));
+    a.classList.toggle("is-active", location.hash === a.getAttribute("href")));
   bindCursorTargets();
   app.focus({ preventScroll: true });
 }
@@ -462,7 +461,8 @@ document.querySelector(".nav__toggle").addEventListener("click", (e) => {
 
 (async function boot() {
   try {
-    const [s, m] = await Promise.all([
+    const inline = window.__PORTFOLIO__; // set by the single-file preview build
+    const [s, m] = inline ? [inline.site, inline.manifest] : await Promise.all([
       fetch("content/site.json").then((r) => r.json()),
       fetch("content/manifest.json").then((r) => r.json()),
     ]);
@@ -475,7 +475,8 @@ document.querySelector(".nav__toggle").addEventListener("click", (e) => {
     return;
   }
   document.querySelector(".nav__logo").textContent = site.name;
-  await intro();
+  try { await intro(); }
+  catch (err) { console.error(err); document.querySelector(".loader")?.remove(); }
   document.body.classList.remove("is-loading");
   addEventListener("hashchange", () => navigate());
   navigate(true);
