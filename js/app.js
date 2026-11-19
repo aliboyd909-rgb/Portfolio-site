@@ -431,8 +431,9 @@ const lightbox = (() => {
 async function intro() {
   const loader = document.querySelector(".loader");
   loader.querySelector(".loader__name").textContent = site.name;
-  if (reduceMotion || sessionStorage.getItem("seenIntro")) { loader.remove(); return; }
-  sessionStorage.setItem("seenIntro", "1");
+  let seen = false;
+  try { seen = !!sessionStorage.getItem("seenIntro"); sessionStorage.setItem("seenIntro", "1"); } catch {}
+  if (reduceMotion || seen) { loader.remove(); return; }
   const counter = loader.querySelector(".loader__count");
   // Preload the first few covers while counting up
   const preload = projects.slice(0, 3).filter((p) => p.cover.type === "image").map((p) =>
